@@ -31,6 +31,7 @@ const Cards = ({resName,cuisine,rating,ETA}) => {
   );
 };
 
+// temp changes
 const Body = () => {
 
 
