@@ -31,7 +31,6 @@ const Cards = ({resName,cuisine,rating,ETA}) => {
   );
 };
 
-// temp changes
 const Body = () => {
 
 
@@ -750,7 +749,7 @@ const Body = () => {
     }
 }
 
-
+// checking whether github is working or not
 
   return (
     <div className="body">
