@@ -749,7 +749,6 @@ const Body = () => {
     }
 }
 
-// checking whether github is working or not
 
   return (
     <div className="body">
