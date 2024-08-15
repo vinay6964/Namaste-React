@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "This is namaste react by Akshay Saini",
   "scripts": {
-    "start" : "parcel index.html",
-    "build" : "parcel build index.html",
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
+  "type": "module",
   "keywords": [
     "react",
     "namaste-react"
@@ -21,7 +22,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
-  "browsersList" : [
+  "browsersList": [
     "Last 2 versions"
   ]
 }
