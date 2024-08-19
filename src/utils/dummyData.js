@@ -1,38 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-/**
- * App
- *  Header
- *    logo
- *    nav links
- *  Body
- *    Search Bar
- *    Rest Cards
- *  Footer
- *   Copyright
- *   Links
- */
-
-const Cards = ({ resData }) => {
-  const { name, cuisines, avgRating, sla, cloudinaryImageId } = resData?.info;
-  return (
-    <div className="rest-cards">
-      <img
-        alt="card"
-        className="rest-img"
-        src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`}
-      />
-      <h3>{name}</h3>
-      <h4>{cuisines.slice(0, 3).join(",")}</h4>
-      <h5>{avgRating} ⭐</h5>
-      <h5>{sla.slaString}</h5>
-    </div>
-  );
-};
-
-const Body = () => {
-  let restaurantsList = [
+const restaurantsList = [
     {
       info: {
         id: "23818",
@@ -1521,49 +1487,4 @@ const Body = () => {
     },
   ];
 
-  return (
-    <div className="body">
-      <div className="search-box">
-        <textarea placeholder="Seach Restaurant"></textarea>
-      </div>
-      <div className="rest-containers">
-        {restaurantsList.map((item) => (
-          <Cards key={item.info.id} resData={item} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const Header = () => {
-  return (
-    <div className="header">
-      <img
-        className="logo-img"
-        alt="Logo"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwL3QaZX69x2XhNC5vM-8TwYsitoWnpxv9VA&s"
-      />
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const AppLayout = () => {
-  return (
-    <div className="app-container">
-      <Header />
-      <Body />
-    </div>
-  );
-};
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log("🚀 ~ root:", root);
-root.render(<AppLayout />);
+export default restaurantsList;  
