@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import RestaurantCards from "./RestaurantCards";
-import restaurantsList from "../utils/dummyData";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
@@ -63,7 +63,7 @@ const Body = () => {
       {restaurants?.length > 0 ? (
         <div className="rest-containers">
           {restaurants.map((item) => (
-            <RestaurantCards key={item.info.id} resData={item} />
+            <Link to={`/rest/${item.info.id}`} key={item.info.id}><RestaurantCards resData={item} /></Link>
           ))}
         </div>
       ) : !filterText?.length && !restaurants?.length ? (

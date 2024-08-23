@@ -1,7 +1,12 @@
 import { LOGO_IMG_URL } from "../utils/constants";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {Link} from "react-router-dom"
 const Header = () => {
   const [loggedInButton, setLoggedInButton] = useState(true);
+
+  console.log("Header Rendered");
+  
+  useEffect (()=>{console.log("useEffect is called")},[loggedInButton])
 
   handleAuthButton = () => {
     setLoggedInButton(!loggedInButton);
@@ -12,9 +17,9 @@ const Header = () => {
       <img className="logo-img" alt="Logo" src={LOGO_IMG_URL} />
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact Us</li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact Us</Link></li>
           <li>Cart</li>
           <li>
             <button onClick={handleAuthButton}>
