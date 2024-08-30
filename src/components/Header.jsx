@@ -4,9 +4,9 @@ import {Link} from "react-router-dom"
 const Header = () => {
   const [loggedInButton, setLoggedInButton] = useState(true);
 
-  console.log("Header Rendered");
+  // console.log("Header Rendered");
   
-  useEffect (()=>{console.log("useEffect is called")},[loggedInButton])
+  useEffect (()=>{},[loggedInButton])
 
   handleAuthButton = () => {
     setLoggedInButton(!loggedInButton);
