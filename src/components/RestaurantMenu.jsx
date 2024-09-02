@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { MENU_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
+import useRestaurantMenuFetchData from "../utils/useRestaurantMenuFetchData";
+import useNetworkCheck from "../utils/useNetworkCheck";
+import OfflineMsg from "./OfflineMsg";
 
 const RestaurantMenu = () => {
-  const [resName, setResName] = useState(null);
-  const [menuList, setMenuList] = useState([]);
   const { restId } = useParams();
-  useEffect(() => {
-    fetchMenu();
-  }, []);
 
-  fetchMenu = async () => {
-    const data = await fetch(`${MENU_URL}${restId}`);
-    const jsonData = await data.json();
-    const { text } = jsonData?.data?.cards[0]?.card?.card;
-    setResName(text);
-    const menuData =
-      jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]
-        ?.card?.card?.itemCards;
-    setMenuList(menuData);
-  };
+  const jsonData = useRestaurantMenuFetchData(restId);
+  console.log("🚀 ~ RestaurantMenu ~ jsonData:", jsonData);
+
+  const resName = jsonData?.data?.cards[0]?.card?.card?.text;
+  const menuList =
+    jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card
+      ?.card?.itemCards;
+
+  const isOffline = useNetworkCheck();
+  if (isOffline) {
+    return <OfflineMsg />;
+  }
 
   return !resName ? (
     <Shimmer />

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RestaurantCards from "./RestaurantCards";
 import Shimmer from "./Shimmer";
+import useNetworkCheck from "../utils/useNetworkCheck";
+import OfflineMsg from "./OfflineMsg";
 
 const Body = () => {
   // powerful state variables
@@ -26,6 +28,11 @@ const Body = () => {
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+
+  const isOffline = useNetworkCheck();
+  if(isOffline){
+    return <OfflineMsg />
+  }
 
   const handleSortRatingWise = (e) => {
     e.preventDefault();

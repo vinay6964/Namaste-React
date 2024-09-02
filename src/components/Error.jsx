@@ -7,7 +7,7 @@ const Error = () => {
   return (
     <div>
       <h1>404 {err.statusText}</h1>
-      <h3>{err.error.message}</h3>
+      <h3>{err?.error?.message || "Something went wrong"}</h3>
     </div>
   )
 }
