@@ -6,16 +6,14 @@ import useNetworkCheck from "../utils/useNetworkCheck";
 import OfflineMsg from "./OfflineMsg";
 
 const Body = () => {
-  // powerful state variables
   const [restaurants, setRestaurants] = useState([]);
   const [allResList, setAllResList] = useState([]);
   const [filterText, setFilterText] = useState("");
 
   useEffect(() => {
-    console.log("Before");
     fetchData();
   }, []);
-  console.log("After");
+
   const fetchData = async () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
@@ -30,8 +28,8 @@ const Body = () => {
   };
 
   const isOffline = useNetworkCheck();
-  if(isOffline){
-    return <OfflineMsg />
+  if (isOffline) {
+    return <OfflineMsg />;
   }
 
   const handleSortRatingWise = (e) => {
@@ -40,43 +38,48 @@ const Body = () => {
       (item) => item.info.avgRating >= 4
     );
     setRestaurants(sortedRestaurants);
-    console.log(restaurants);
   };
 
   const handleFilter = (e) => {
     let text = e.target.value;
-    console.log(text);
     setFilterText(e.target.value);
     const filteredRes = allResList.filter((item) =>
-      item.info.name.toLowerCase().includes(text.toLocaleLowerCase())
+      item.info.name.toLowerCase().includes(text.toLowerCase())
     );
     if (filteredRes.length) setRestaurants(filteredRes);
     else setRestaurants([]);
   };
 
   return (
-    <div className="body">
-      <div className="search-box">
+    <div className="p-4 bg-gray-100 min-h-screen">
+      <div className="mb-4 flex justify-center items-center">
         <input
-          className="textarea"
+          className="px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="1"
           cols="30"
-          placeholder="Seach Restaurant"
+          placeholder="Search Restaurant"
           value={filterText}
           onChange={handleFilter}
-        ></input>
-        <button onClick={handleSortRatingWise}>Sort Rating Wise</button>
+        />
+        <button
+          className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onClick={handleSortRatingWise}
+        >
+          Sort Rating Wise
+        </button>
       </div>
       {restaurants?.length > 0 ? (
-        <div className="rest-containers">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {restaurants.map((item) => (
-            <Link to={`/rest/${item.info.id}`} key={item.info.id}><RestaurantCards resData={item} /></Link>
+            <Link to={`/rest/${item.info.id}`} key={item.info.id}>
+              <RestaurantCards resData={item} />
+            </Link>
           ))}
         </div>
       ) : !filterText?.length && !restaurants?.length ? (
         <Shimmer />
       ) : (
-        <h1>No Restaurants Found</h1>
+        <h1 className="text-center text-gray-500 text-lg">No Restaurants Found</h1>
       )}
     </div>
   );
