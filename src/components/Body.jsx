@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import RestaurantCards from "./RestaurantCards";
+import RestaurantCards, {withPromotedLabel} from "./RestaurantCards";
 import Shimmer from "./Shimmer";
 import useNetworkCheck from "../utils/useNetworkCheck";
 import OfflineMsg from "./OfflineMsg";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
+  const {userName,setUserLogged} = useContext(UserContext)
   const [restaurants, setRestaurants] = useState([]);
   const [allResList, setAllResList] = useState([]);
   const [filterText, setFilterText] = useState("");
+
+  const PromotedRestairantCards = withPromotedLabel(RestaurantCards);
 
   useEffect(() => {
     fetchData();
@@ -67,12 +71,22 @@ const Body = () => {
         >
           Sort Rating Wise
         </button>
+      <div className="mb-4 flex justify-center items-center m-3">
+       <label className="px-2">User Logged In : {}</label>
+       <input className="px-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+       onChange={(e)=>{setUserLogged(e.target.value)}}
+        value={userName}
+       >
+       </input>
+      </div>
       </div>
       {restaurants?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {restaurants.map((item) => (
             <Link to={`/rest/${item.info.id}`} key={item.info.id}>
-              <RestaurantCards resData={item} />
+              {
+                item?.info?.veg ? (<PromotedRestairantCards resData={item}/>) : (<RestaurantCards resData={item} />)
+              }
             </Link>
           ))}
         </div>

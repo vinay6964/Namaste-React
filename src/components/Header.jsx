@@ -1,9 +1,11 @@
 import { LOGO_IMG_URL } from "../utils/constants";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { Link } from "react-router-dom";
 import useNetworkCheck from "../utils/useNetworkCheck";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
+  const {userName} = useContext(UserContext);
   const [loggedInButton, setLoggedInButton] = useState(true);
 
   useEffect(() => {}, [loggedInButton]);
@@ -72,6 +74,9 @@ const Header = () => {
       >
         {loggedInButton ? "Log In" : "Log Out"}
       </button>
+    </li>
+    <li>
+      <h5>User : {userName}</h5>
     </li>
   </ul>
 </nav>

@@ -1,5 +1,5 @@
 import React from "react";
-
+import UserContext from "../utils/UserContext";
 class UserClass extends React.Component {
   constructor(props) {
     super();
@@ -19,6 +19,7 @@ class UserClass extends React.Component {
     console.log("child componenetDidMount is called")
     const data = await fetch("https://api.github.com/users/vinay6964");
     const jsonData = await data.json();
+    this.setState({userInfo:jsonData})
     console.log("Child data",jsonData);
   }
 
@@ -38,6 +39,13 @@ class UserClass extends React.Component {
       <div className="userDetails">
         <h5>Name : {name}</h5>
         <h5>User Id : {login}</h5>
+        <div>
+        <UserContext.Consumer>
+        {(profile) => (
+          <h5>Logged In User : {profile.userName}</h5>
+          )}
+        </UserContext.Consumer>
+        </div>
         <img alt="Loading" src={avatar_url}/>
       </div>
     );

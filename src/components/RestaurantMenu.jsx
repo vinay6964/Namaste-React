@@ -3,12 +3,13 @@ import Shimmer from "./Shimmer";
 import useRestaurantMenuFetchData from "../utils/useRestaurantMenuFetchData";
 import useNetworkCheck from "../utils/useNetworkCheck";
 import OfflineMsg from "./OfflineMsg";
+import CategoryItems from "./CategoryItems";
 
 const RestaurantMenu = () => {
   const { restId } = useParams();
 
   const jsonData = useRestaurantMenuFetchData(restId);
-  console.log("🚀 ~ RestaurantMenu ~ jsonData:", jsonData);
+  // console.log("🚀 ~ RestaurantMenu ~ jsonData:", jsonData);
 
   const resName = jsonData?.data?.cards[0]?.card?.card?.text;
   const menuList =
@@ -23,21 +24,9 @@ const RestaurantMenu = () => {
   return !resName ? (
     <Shimmer />
   ) : (
-    <div className="menu">
-      <h1>{resName}</h1>
-      <h2>Menu</h2>
-      <ul>
-        {menuList?.map((item) => {
-          return (
-            <li key={item.card.info.id}>
-              <p>
-                {item.card.info.name} - Rs {item.card.info.price / 100}
-              </p>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <>
+    <CategoryItems data={jsonData}/>
+    </>
   );
 };
 
