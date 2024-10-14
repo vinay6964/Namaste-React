@@ -12,3 +12,7 @@
    - Install Jest
    - Install Babel dependencies
    - Configure Babel  
+   - Configure parcel config file to disable parcel default babael transpilation
+   - install @babel/preset-react (to make JSX work in test case)
+   - add @babel/preset-react to babel.config.js
+   - install @testing-library/jest-dom
