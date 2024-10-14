@@ -3,6 +3,7 @@ import { useState, useEffect,useContext } from "react";
 import { Link } from "react-router-dom";
 import useNetworkCheck from "../utils/useNetworkCheck";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const {userName} = useContext(UserContext);
@@ -11,6 +12,11 @@ const Header = () => {
   useEffect(() => {}, [loggedInButton]);
 
   const isOffline = useNetworkCheck();
+
+  // Subscibe to the store using selectore
+  const cartItems = useSelector((store) => {
+    return store.cart.items
+  })
 
   const handleAuthButton = () => {
     setLoggedInButton(!loggedInButton);
@@ -64,7 +70,7 @@ const Header = () => {
         to="/cart"
         className="hover:text-blue-500 transition-colors duration-200"
       >
-        Cart
+        Cart ({cartItems.length})
       </Link>
     </li>
     <li>

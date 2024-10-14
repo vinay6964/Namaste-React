@@ -12,8 +12,6 @@ const useNetworkCheck = () => {
         })
     },[])
 
-    console.log(isOffline)
-
     return isOffline;
 }
 

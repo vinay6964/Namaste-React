@@ -38,9 +38,10 @@ const RestaurantCategories = (props) => {
         {props.showItemsIndex && (
           <AccordionDetails className="bg-white">
             <div className="space-y-6">
-              {nestedTitle.map((item) => (
+              {nestedTitle.map((item,id) => (
                 <RestaurantCategoryList
-                  key={props?.data?.card?.card?.itemCards?.card?.info?.id}
+                  // key={props?.data?.card?.card?.itemCards?.card?.info?.id}
+                  key={id}
                   data={item}
                 />
               ))}
